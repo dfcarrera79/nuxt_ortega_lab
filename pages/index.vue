@@ -1,41 +1,41 @@
 <script setup lang="ts">
-import { useQuasar } from 'quasar';
-import type { QBtnProps, QNotifyOptions } from 'quasar';
+import { useQuasar } from "quasar";
+import type { QBtnProps, QNotifyOptions } from "quasar";
 
 const { dialog, bottomSheet, loading, loadingBar, notify, dark, screen } =
   useQuasar();
 
 loadingBar.setDefaults({
-  color: 'green',
-  size: '15px',
-  position: 'bottom',
+  color: "green",
+  size: "15px",
+  position: "bottom",
 });
 
-const themeIcon = computed(() => (dark.isActive ? 'dark_mode' : 'light_mode'));
+const themeIcon = computed(() => (dark.isActive ? "dark_mode" : "light_mode"));
 
 const showBottomsheet = () =>
   bottomSheet({
-    message: 'Bottom Sheet',
+    message: "Bottom Sheet",
     actions: [
       {
-        label: 'Drive',
-        img: 'https://cdn.quasar.dev/img/logo_drive_128px.png',
-        id: 'drive',
+        label: "Drive",
+        img: "https://cdn.quasar.dev/img/logo_drive_128px.png",
+        id: "drive",
       },
       {
-        label: 'Keep',
-        img: 'https://cdn.quasar.dev/img/logo_keep_128px.png',
-        id: 'keep',
+        label: "Keep",
+        img: "https://cdn.quasar.dev/img/logo_keep_128px.png",
+        id: "keep",
       },
       {
-        label: 'Google Hangouts',
-        img: 'https://cdn.quasar.dev/img/logo_hangouts_128px.png',
-        id: 'calendar',
+        label: "Google Hangouts",
+        img: "https://cdn.quasar.dev/img/logo_hangouts_128px.png",
+        id: "calendar",
       },
       {
-        label: 'Calendar',
-        img: 'https://cdn.quasar.dev/img/logo_calendar_128px.png',
-        id: 'calendar',
+        label: "Calendar",
+        img: "https://cdn.quasar.dev/img/logo_calendar_128px.png",
+        id: "calendar",
       },
     ],
   });
@@ -43,15 +43,15 @@ const showBottomsheet = () =>
 const random = <T extends string>(items: T[]): T =>
   items[Math.floor(Math.random() * items.length)];
 
-type Position = Exclude<QNotifyOptions['position'], undefined>;
+type Position = Exclude<QNotifyOptions["position"], undefined>;
 
 const buttons: QBtnProps[] = [
   {
-    label: 'Bottomsheet',
+    label: "Bottomsheet",
     onClick: () => showBottomsheet(),
   },
   {
-    label: 'Loading',
+    label: "Loading",
     onClick: () => {
       loading.show();
       setTimeout(() => {
@@ -60,7 +60,7 @@ const buttons: QBtnProps[] = [
     },
   },
   {
-    label: 'LoadingBar',
+    label: "LoadingBar",
     onClick: () => {
       loadingBar.start();
       setTimeout(() => {
@@ -69,47 +69,48 @@ const buttons: QBtnProps[] = [
     },
   },
   {
-    label: 'Dialog',
-    onClick: () => dialog({ message: 'Hello World' }),
+    label: "Dialog",
+    onClick: () => dialog({ message: "Hello World" }),
   },
   {
-    label: 'Notify',
+    label: "Notify",
     onClick: () =>
       notify({
-        message: 'Hello World',
+        message: "Hello World",
         position: random<Position>([
-          'left',
-          'right',
-          'center',
-          'bottom',
-          'top',
+          "left",
+          "right",
+          "center",
+          "bottom",
+          "top",
         ]),
       }),
   },
 ];
 </script>
 <template>
-  <q-page class="q-pl-lg">
-    <p class="text-h6 q-pt-md">Plugin Showcase</p>
-    <q-list>
-      <q-item v-for="(button, idx) in buttons" :key="idx">
-        <q-btn color="primary" v-bind="button" />
-      </q-item>
-      <q-item>
-        <q-toggle
-          :model-value="dark.isActive"
-          checked-icon="dark_mode"
-          unchecked-icon="light_mode"
-          size="3rem"
-          @update:model-value="(val) => dark.set(val)"
-        />
-      </q-item>
-    </q-list>
-    <p class="text-h6 q-pt-md">Directive Showcase</p>
-    <q-list bordered separator style="max-width: 318px">
-      <q-item v-ripple clickable>
-        <q-item-section>Ripple</q-item-section>
-      </q-item>
-    </q-list>
+  <q-page class="column justify-center content-center">
+    <div
+      id="mensaje"
+      class="text-body1 text-weight-medium q-pa-md"
+      style="text-align: center"
+    >
+      <q-img src="../assets/loxasoluciones.png" alt="loxasoluciones" />
+      <p>
+        Producto desarrollado por Loxasoluciones bajo la dirección de Diego
+        Fernando Carrera
+      </p>
+
+      <p>
+        <a href="https://wa.me/593986704083" target="_blank">0986704083</a> -
+        <a href="mailto:dfcarrera@outlook.com">dfcarrera@outlook.com</a>
+      </p>
+
+      <p>
+        <a href="https://www.loxasoluciones.com/" target="_blank"
+          >Loxasoluciones</a
+        >, Loja - Ecuador
+      </p>
+    </div>
   </q-page>
 </template>
