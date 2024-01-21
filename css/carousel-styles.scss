@@ -1,0 +1,104 @@
+.elemLeft {
+  animation: moveToRight 0.5s ease-in-out;
+  animation-delay: 400ms;
+  animation-fill-mode: backwards;
+}
+
+@keyframes moveToRight {
+  0% {
+    transform: translateX(-50px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+.elemRigth {
+  animation: moveToLeft 0.5s ease-in-out;
+  animation-delay: 400ms;
+  animation-fill-mode: backwards;
+}
+
+@keyframes moveToLeft {
+  0% {
+    transform: translateX(50px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+.elemLeftReverse {
+  animation: moveToRightReverse 0.5s ease-in-out;
+  animation-delay: 400ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes moveToRightReverse {
+  100% {
+    transform: translateX(-50px);
+  }
+}
+
+.elemRigthReverse {
+  animation: moveToLeftReverse 0.5s ease-in-out;
+  animation-delay: 400ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes moveToLeftReverse {
+  100% {
+    transform: translateX(50px);
+  }
+}
+
+.custom-caption {
+  text-align: left !important;
+  font-size: 48px !important;
+  line-height: 1.1em !important;
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: 400;
+  padding: 12px;
+}
+
+.elem {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateX(20px); /* Ajustar la posición inicial */
+  opacity: 0;
+  animation: moveToTop 1s ease-in-out;
+  animation-delay: 500ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes moveToTop {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateX(20px); /* Mantener la posición inicial */
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(-30px) translateX(20px); /* Aplicar el desplazamiento vertical */
+  }
+}
+
+.custom-btn:hover .q-icon {
+  animation: moveIconToRight 0.1s ease-in-out;
+  animation-delay: 50ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes moveIconToRight {
+  0% {
+    transform: translateX(0px);
+  }
+  100% {
+    transform: translateX(8px);
+  }
+}
+
+.custom-btn:not(:hover) .q-icon {
+  display: none;
+}
