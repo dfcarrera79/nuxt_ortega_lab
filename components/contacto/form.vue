@@ -5,27 +5,14 @@ import { useQuasar } from "quasar";
 // Data
 const $q = useQuasar();
 
-const name = ref(null);
-const email = ref(null);
+const name = ref("");
+const email = ref("");
 const telefono = ref(null);
-const asunto = ref(null);
+const asunto = ref("");
 const editor = ref("Mensaje: ");
 
 // Methods
 const onSubmit = () => {
-  // Validate inputs
-  if (!name.value || !email.value || !telefono.value || !asunto.value) {
-    $q.notify({
-      color: "negative",
-      textColor: "white",
-      icon: "warning",
-      message: "Todos los campos son obligatorios",
-    });
-    return;
-  }
-
-  // Additional input validation logic can be added here
-
   // Prepare email content
   const subject = encodeURIComponent(asunto.value);
   const body = encodeURIComponent(
@@ -48,7 +35,7 @@ const onSubmit = () => {
     <q-form @submit="onSubmit" class="q-gutter-md">
       <div class="column justify-center">
         <div class="row justify-center q-gutter-md">
-          <div style="width: 290px">
+          <div class="et_pb_text_1" style="width: 290px">
             <q-input
               dark
               v-model="name"
@@ -60,7 +47,7 @@ const onSubmit = () => {
               ]"
             />
           </div>
-          <div style="width: 290px">
+          <div class="et_pb_text_1" style="width: 290px">
             <q-input
               dark
               v-model="telefono"
@@ -69,15 +56,15 @@ const onSubmit = () => {
               :rules="[
                 (val) => !!val || 'Por favor ingrese su número de teléfono',
                 (val) =>
-                  /^[0-9]{10}$/.test(val) ||
-                  'Número de teléfono inválido (10 dígitos))',
+                  /^[0-9]{7,14}$/.test(val) ||
+                  'Número de teléfono inválido (Min. 7 dígitos, Max. 14 dígitos)',
               ]"
             />
           </div>
         </div>
 
         <div class="row justify-center q-gutter-md">
-          <div style="width: 290px">
+          <div class="et_pb_text_1" style="width: 290px">
             <q-input
               dark
               v-model="email"
@@ -91,7 +78,7 @@ const onSubmit = () => {
               ]"
             />
           </div>
-          <div style="width: 290px">
+          <div class="et_pb_text_1" style="width: 290px">
             <q-input
               dark
               v-model="asunto"
@@ -105,7 +92,7 @@ const onSubmit = () => {
           </div>
         </div>
 
-        <div class="q-pa-md" style="min-width: 650px">
+        <div class="q-pa-md et_pb_text_1" style="min-width: 650px">
           <q-editor
             v-model="editor"
             min-height="8rem"
@@ -119,6 +106,11 @@ const onSubmit = () => {
           outline
           color="white"
           no-caps
+          :disable="
+            name === '' ||
+            (telefono === '' && email === '') ||
+            editor === 'Mensaje: '
+          "
           label="Enviar"
           class="custom-btn et_pb_text_1"
           style="font-weight: bold"
