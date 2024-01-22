@@ -80,7 +80,7 @@ export default {
             class="custom-btn et_pb_text_1"
             style="font-weight: 400"
             color="white"
-            href="#/servicios"
+            href="/servicios"
           >
             <q-icon left size="2em" name="chevron_right" />
           </q-btn>
@@ -99,7 +99,7 @@ export default {
             label="Más información"
             class="custom-btn et_pb_text_1"
             style="font-weight: 400"
-            href="#/nosotros"
+            href="/nosotros"
           >
             <q-icon left size="2em" name="chevron_right" />
           </q-btn>
