@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useQuasar } from "quasar";
-import Foot from "../components/FooterComponent.vue";
+import Foot from "../components/foot.vue";
 import { ref, onMounted, onBeforeUnmount } from "vue";
 
 // Data
@@ -19,19 +19,19 @@ const menuList = [
     icon: "medical_services",
     label: "Servicios",
     separator: false,
-    to: "#/servicios",
+    to: "/servicios",
   },
   {
     icon: "group",
     label: "Nosotros",
     separator: false,
-    to: "#/nosotros",
+    to: "/nosotros",
   },
   {
     icon: "alternate_email",
     label: "Contacto",
     separator: false,
-    to: "#/contacto",
+    to: "/contacto",
   },
   {
     icon: "article",
@@ -81,7 +81,7 @@ onBeforeUnmount(() => {
           <a href="/">
             <img
               ref="logo"
-              src="../assets/logo.png"
+              src="/img/logo.png"
               class="q-pa-sm q-transition--fast"
               :style="{ height: scrolled ? '50px' : '70px' }"
               alt="Descripción de la imagen"
@@ -207,7 +207,7 @@ onBeforeUnmount(() => {
         href="https://wa.me/593995984963"
       >
         <q-avatar>
-          <img src="../assets/whatsapp.svg" />
+          <img src="/img/whatsapp.svg" />
         </q-avatar>
         <q-tooltip
           transition-show="scale"

@@ -65,8 +65,8 @@ export default {
       @mouseenter="handleMouseEnter"
       @mouseleave="handleMouseLeave"
     >
-      <q-carousel-slide :name="1" img-src="../assets/img1.png" />
-      <q-carousel-slide :name="2" img-src="../assets/img2.jpg"
+      <q-carousel-slide :name="1" img-src="/img/img1.png" />
+      <q-carousel-slide :name="2" img-src="/img/img2.jpg"
         ><div class="custom-caption elem" style="font-family: 'Lato'">
           <div class="text-h4">Citología en base líquida</div>
           <div class="text-subtitle1 q-mb-md">
@@ -86,7 +86,7 @@ export default {
           </q-btn>
         </div>
       </q-carousel-slide>
-      <q-carousel-slide :name="3" img-src="../assets/img3.jpg"
+      <q-carousel-slide :name="3" img-src="/img/img3.jpg"
         ><div class="custom-caption elem" style="font-family: 'Lato'">
           <div class="text-h4">Comprometidos con la docencia</div>
           <div class="text-subtitle1 q-mb-md">
@@ -105,7 +105,7 @@ export default {
           </q-btn>
         </div>
       </q-carousel-slide>
-      <q-carousel-slide :name="4" img-src="../assets/img4.png"
+      <q-carousel-slide :name="4" img-src="/img/img4.png"
         ><div
           class="custom-caption elem q-pa-xl"
           style="

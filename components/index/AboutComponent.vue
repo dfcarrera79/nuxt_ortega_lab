@@ -8,17 +8,19 @@ function reveal(clase: string) {
     var elementVisible = 150;
 
     if (elementTop < windowHeight - elementVisible) {
-      reveals[i].classList.add('active');
+      reveals[i].classList.add("active");
     } else {
-      reveals[i].classList.remove('active');
+      reveals[i].classList.remove("active");
     }
   }
 }
 
-window.addEventListener('scroll', () => reveal('.pgraph'));
-window.addEventListener('scroll', () => reveal('.container_img'));
-window.addEventListener('scroll', () => reveal('hr'));
-window.addEventListener('scroll', () => reveal('.custom-caption'));
+if (process.client) {
+  window.addEventListener("scroll", () => reveal(".pgraph"));
+  window.addEventListener("scroll", () => reveal(".container_img"));
+  window.addEventListener("scroll", () => reveal("hr"));
+  window.addEventListener("scroll", () => reveal(".custom-caption"));
+}
 </script>
 
 <template>
@@ -58,7 +60,7 @@ window.addEventListener('scroll', () => reveal('.custom-caption'));
       <div class="container_outer_img">
         <div class="column container_img">
           <q-img
-            src="../assets/img5.jpg"
+            src="/img/img5.jpg"
             fit="scale-down"
             style="max-width: 450px"
           />
@@ -88,7 +90,7 @@ window.addEventListener('scroll', () => reveal('.custom-caption'));
 <style lang="scss" scoped>
 .et_pb_text_1 {
   line-height: 1.6em;
-  font-family: 'Josefin Sans', Helvetica, Arial, Lucida, sans-serif;
+  font-family: "Josefin Sans", Helvetica, Arial, Lucida, sans-serif;
   font-weight: 300;
   font-size: 18px;
   line-height: 1.6em;
