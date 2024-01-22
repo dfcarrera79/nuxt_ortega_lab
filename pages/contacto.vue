@@ -34,16 +34,17 @@ const openGoogleMapsMedilab = () => {
 <template>
   <div class="element">
     <q-img class="full-width" style="max-height: 200px">
-      <img src="../assets/row-bgimage.jpg" />
+      <img src="/img/row-bgimage.jpg" />
     </q-img>
     <div
       class="font-bold q-pt-sm justify-center custom-caption"
       style="font-family: 'Lato'"
     >
-      <div class="text-h4 q-pt-xl justify-center">Contáctenos</div>
+      <div class="text-h4 q-pt-xl justify-center">
+        Contáctenos
+        <hr class="q-mb-md" style="max-width: 300px" />
+      </div>
     </div>
-
-    <hr class="q-mb-md" />
 
     <div class="q-pa-md row q-gutter-md justify-evenly pgraph">
       <q-card dark class="my-card" flat bordered>
@@ -162,9 +163,9 @@ const openGoogleMapsMedilab = () => {
     >
       <div class="text-h4 q-pt-xl justify-center">Reserva tu cita</div>
       <div class="text-subtitle1">¡Estamos a su servicio!</div>
+      <hr class="q-mb-md" style="max-width: 300px" />
     </div>
 
-    <hr class="q-mb-md" />
     <div class="row justify-center">
       <Form />
     </div>
@@ -228,7 +229,7 @@ hr {
   border: none;
   height: 0.75px;
   background-color: white;
-  width: 35%; /* You can adjust this value to set the desired length */
+  width: 100%; /* You can adjust this value to set the desired length */
   transition: transform 0.7s ease 0.5s;
   transform: translateX(-600px);
   opacity: 0;

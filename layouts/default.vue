@@ -176,7 +176,7 @@ onBeforeUnmount(() => {
     <q-page-scroller
       position="bottom-right"
       :scroll-offset="150"
-      :offset="[18, 18]"
+      :offset="[28, 18]"
     >
       <q-btn icon="keyboard_arrow_up" outline round color="white">
         <q-tooltip
@@ -236,13 +236,13 @@ onBeforeUnmount(() => {
 }
 
 .whatsapp-btn {
-  margin-right: 15px;
+  margin-right: 25px;
   margin-bottom: 70px;
   transition: transform 0.5s ease;
 }
 
 .fixed-whatsapp-btn {
-  margin-right: 15px;
+  margin-right: 25px;
   margin-bottom: 70px;
   transform: translateY(40px); /* Adjust the initial position */
 }

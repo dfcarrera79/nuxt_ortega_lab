@@ -82,17 +82,16 @@ const cardContent = [
 <template>
   <div class="element">
     <q-img class="full-width" style="max-height: 200px">
-      <img src="../assets/row-bgimage.jpg" />
+      <img src="/img/row-bgimage.jpg" />
     </q-img>
 
     <div
-      class="font-bold q-pt-sm justify-center custom-caption"
+      class="font-bold q-pt-sm justify-center content-center custom-caption"
       style="font-family: 'Lato'"
     >
-      <div class="text-h4 q-pt-xl justify-center">Nuestros servicios</div>
+      <div class="text-h4 q-pt-xl">Nuestros servicios</div>
+      <hr class="q-mb-md" style="max-width: 350px" />
     </div>
-
-    <hr class="q-mb-md" />
 
     <div
       class="fit row wrap justify-evenly items-center content-center q-pa-xl"
@@ -142,7 +141,7 @@ hr {
   border: none;
   height: 0.75px;
   background-color: white;
-  width: 35%; /* You can adjust this value to set the desired length */
+  width: 100%; /* You can adjust this value to set the desired length */
   transition: transform 0.7s ease 0.5s;
   transform: translateX(-600px);
   opacity: 0;

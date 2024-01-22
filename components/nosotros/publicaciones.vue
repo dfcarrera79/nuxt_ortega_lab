@@ -67,9 +67,9 @@ const publicaciones = [
     <div class="text-left font-bold q-pt-sm custom-caption title">
       <div class="text-h4 q-pt-xl">Artículos científicos de especialidad</div>
       <div class="text-h4">disponibles en PUBMED</div>
+      <hr class="q-mb-md" style="min-width: 350px" />
     </div>
 
-    <hr class="q-mb-md" />
     <div class="q-pa-md text-white pgraph" style="max-width: 600px">
       <q-list
         bordered
@@ -112,7 +112,7 @@ hr {
   border: none;
   height: 0.75px;
   background-color: white;
-  width: 50%; /* You can adjust this value to set the desired length */
+  width: 100%;
   transition: transform 0.7s ease 0.5s;
   transform: translateX(-600px);
   opacity: 0;

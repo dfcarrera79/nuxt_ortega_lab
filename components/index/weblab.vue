@@ -32,7 +32,7 @@ if (process.client) {
       <div class="container_outer_img">
         <div class="column container_img">
           <q-img
-            src="../assets/img6.png"
+            src="/img/img6.png"
             fit="scale-down"
             style="max-width: 500px"
           />

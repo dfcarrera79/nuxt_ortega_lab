@@ -92,7 +92,7 @@ const onSubmit = () => {
           </div>
         </div>
 
-        <div class="q-pa-md et_pb_text_1" style="min-width: 650px">
+        <div class="q-pa-md et_pb_text_1" style="min-width: 300px">
           <q-editor
             v-model="editor"
             min-height="8rem"
@@ -117,6 +117,18 @@ const onSubmit = () => {
           type="submit"
         >
           <q-icon left size="2em" name="chevron_right" />
+          <q-tooltip
+            transition-show="scale"
+            transition-hide="scale"
+            anchor="center right"
+            self="center start"
+            v-if="name === '' || editor === 'Mensaje: '"
+          >
+            <span class="et_pb_text_1"
+              >Por favor, ingrese al menos un nombre y una forma de contacto
+              (teléfono o email).</span
+            >
+          </q-tooltip>
         </q-btn>
       </div>
     </q-form>

@@ -39,10 +39,10 @@ if (process.client) {
     <div class="text-left font-bold q-pt-sm custom-caption title">
       <div class="text-h4 q-pt-xl" style="font-family: 'Lato'">
         Detalle de procedimientos realizados
+        <hr class="q-mb-md" style="min-width: 350px" />
       </div>
     </div>
 
-    <hr class="q-mb-md" style="width: 720px" />
     <div class="q-pa-md text-white" style="max-width: 900px">
       <q-list bordered class="rounded-borders et_pb_text_1">
         <q-expansion-item
@@ -388,6 +388,7 @@ if (process.client) {
 hr {
   border: none;
   height: 0.75px;
+  width: 100%;
   background-color: white;
   transition: transform 0.7s ease 0.5s;
   transform: translateX(-600px);

@@ -55,23 +55,28 @@ if (process.client) {
     >
       <div class="text-h4 q-pt-xl">Cartera de servicios</div>
       <div class="text-subtitle1">Ponemos a su disposición el estudio de:</div>
+      <hr class="q-mb-md" />
     </div>
-
-    <hr class="q-mb-md" />
 
     <div class="fit row wrap justify-evenly items-center content-center">
       <template v-for="(content, index) in cardContent" :key="index">
-        <Card
-          :logo="content.logo"
-          :title="content.title"
-          :description="content.description"
-        />
+        <nuxt-link to="/servicios" class="card-link">
+          <Card
+            :logo="content.logo"
+            :title="content.title"
+            :description="content.description"
+          />
+        </nuxt-link>
       </template>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
+.card-link {
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Inherit the color from the parent */
+}
 .custom-caption {
   text-align: left !important;
   font-size: 48px !important;
@@ -101,7 +106,7 @@ hr {
   border: none;
   height: 0.75px;
   background-color: white;
-  width: 28%; /* You can adjust this value to set the desired length */
+  width: 100%; /* You can adjust this value to set the desired length */
   transition: transform 0.7s ease 0.5s;
   transform: translateX(-600px);
   opacity: 0;
