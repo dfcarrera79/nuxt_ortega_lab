@@ -4,26 +4,46 @@ import { useQuasar } from "quasar";
 
 // Data
 const $q = useQuasar();
-
 const name = ref("");
 const email = ref("");
 const telefono = ref(null);
 const asunto = ref("");
-const editor = ref("Mensaje: ");
+const editor = ref("");
+const show = ref(true);
 
 // Methods
-const onSubmit = () => {
-  // Prepare email content
-  const subject = encodeURIComponent(asunto.value);
-  const body = encodeURIComponent(
-    `Nombre: ${name.value}\nTeléfono: ${telefono.value}\nEmail: ${email.value}\nAsunto: ${asunto.value}\nMensaje: ${editor.value}`
-  );
+const submitEmail = async () => {
+  try {
+    const apiUrl = "http://127.0.0.1:3009/v1/reclamos/reclamo/respuestaLab";
+    const response = await fetch(apiUrl, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: "dfcarrera@outlook.com",
+        asunto: asunto.value,
+        respuesta: `Nombre: ${name.value}, \nTeléfono: ${telefono.value}, \nEmail: ${email.value}, \nAsunto: ${asunto.value}, \nMensaje: ${editor.value}`,
+      }),
+    });
 
-  // Construct the mailto URL
-  const mailtoUrl = `mailto:?subject=${subject}&body=${body}`;
-
-  // Open user's default email client
-  window.location.href = mailtoUrl;
+    if (response.ok) {
+      $q.notify({
+        color: "positive",
+        textColor: "white",
+        icon: "done",
+        message: "Correo electrónico enviado exitosamente",
+      });
+      show.value = false;
+    }
+  } catch (error) {
+    $q.notify({
+      color: "negative",
+      textColor: "white",
+      icon: "error",
+      message: "Error al enviar el correo electrónico",
+    });
+  }
 };
 </script>
 
@@ -32,7 +52,7 @@ const onSubmit = () => {
     class="q-pa-md fit row wrap justify-around items-center content-center"
     style="max-width: 800px"
   >
-    <q-form @submit="onSubmit" class="q-gutter-md">
+    <q-form @submit="submitEmail" class="q-gutter-md" v-show="show">
       <div class="column justify-center">
         <div class="row justify-center q-gutter-md">
           <div class="et_pb_text_1" style="width: 290px">
@@ -94,6 +114,7 @@ const onSubmit = () => {
 
         <div class="q-pa-md et_pb_text_1" style="min-width: 300px">
           <q-editor
+            placeholder="Mensaje: "
             v-model="editor"
             min-height="8rem"
             :content-style="{ backgroundColor: 'rgba(192, 192, 192, 1)' }"
