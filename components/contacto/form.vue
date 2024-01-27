@@ -14,7 +14,7 @@ const show = ref(true);
 // Methods
 const submitEmail = async () => {
   try {
-    const apiUrl = "http://127.0.0.1:3009/v1/reclamos/reclamo/respuestaLab";
+    const apiUrl = "http://127.0.0.1:3009/enviar_correo/respuestaLab";
     const response = await fetch(apiUrl, {
       method: "PUT",
       headers: {

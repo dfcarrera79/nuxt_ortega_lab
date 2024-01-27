@@ -211,6 +211,7 @@ const openGoogleMapsMedilab = () => {
   font-size: 48px !important;
   line-height: 1.1em !important;
   text-transform: uppercase;
+  font-family: "Oswald";
   color: #fff;
   font-weight: 400;
   padding: 12px;
