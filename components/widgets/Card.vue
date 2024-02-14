@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from "vue";
+import { useAppStore } from "../../store/app";
+
+const appStore = useAppStore();
 
 /* Defined props */
 const props = defineProps({
@@ -34,7 +37,7 @@ const onLeave = () => {
   <div class="q-py-md">
     <q-card
       class="my-card custom-hover-background"
-      style="height: 360px"
+      style="height: 390px"
       @mouseenter="onHover"
       @mouseleave="onLeave"
     >
@@ -43,14 +46,19 @@ const onLeave = () => {
           class="column justify-center items-center content-center scale-up-center fadeIn"
         >
           <div class="text-center font-bold q-pt-md">
-            <q-btn outline round color="white" size="lg">
+            <q-btn
+              outline
+              round
+              size="lg"
+              :color="color || appStore.darkMode ? 'white' : 'blue-9'"
+            >
               <strong>{{ props.logo }}</strong>
             </q-btn>
             <div
               :class="
-                color
-                  ? 'q-my-md text-h5 text-white'
-                  : 'q-my-md text-h5 text-white'
+                color || appStore.darkMode
+                  ? 'text-white q-my-md text-h5 '
+                  : 'text-blue-9 q-my-md text-h5 '
               "
               style="font-family: 'Lato'"
             >
@@ -60,8 +68,8 @@ const onLeave = () => {
           <div
             :class="
               color
-                ? 'text-subtitle1 text-center text-white et_pb_text_1'
-                : 'text-subtitle1 text-center text-white et_pb_text_1'
+                ? 'text-white text-subtitle1 text-center et_pb_text_1'
+                : 'text-subtitle1 text-center et_pb_text_1'
             "
           >
             <p>
@@ -77,9 +85,9 @@ const onLeave = () => {
 <style lang="scss" scoped>
 .et_pb_text_1 {
   line-height: 1.6em;
-  font-family: 'Josefin Sans', Helvetica, Arial, Lucida, sans-serif;
+  font-family: "Josefin Sans", Helvetica, Arial, Lucida, sans-serif;
   font-weight: 300;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.6em;
   margin-bottom: 29px !important;
 }
@@ -107,8 +115,25 @@ const onLeave = () => {
 }
 .custom-hover-background {
   &:hover {
-    background: radial-gradient(circle, #35a2ff 0%, #014a88 100%);
+    background: radial-gradient(circle, #35a2ff 0%, #016ece 100%);
     transition: background-color 0.3s; // Opcional: agrega una transición suave
   }
+}
+
+.element-dark {
+  background-image: linear-gradient(
+    142deg,
+    #5b5b5b 0%,
+    rgba(0, 0, 0, 0.9) 100%
+  ) !important;
+}
+/* Para dark mode no activo (inverso de los colores de .element) */
+.element {
+  background-image: linear-gradient(
+    142deg,
+    #a4a4a4 0%,
+    /* Color de fondo blanco en lugar de #5b5b5b */ rgba(255, 255, 255, 0.9)
+      100% /* Color del fondo con opacidad en lugar de rgba(0, 0, 0, 0.9) */
+  ) !important;
 }
 </style>

@@ -1,16 +1,32 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useAppStore } from "../store/app";
+
+const appStore = useAppStore();
+</script>
 
 <template>
-  <div class="column background full-width">
+  <div
+    :class="
+      !appStore.darkMode
+        ? 'element column full-width'
+        : 'element-dark column full-width'
+    "
+  >
     <div
       class="row justify-around items-center content-center"
       style="height: 150px"
     >
-      <div class="text-white">
+      <div :class="appStore.darkMode ? 'text-white' : 'text-grey-9'">
         <div class="text-h4" style="font-family: 'Lato'">
           Ortega Pathology Lab
         </div>
-        <hr />
+        <hr
+          :style="
+            !appStore.darkMode
+              ? 'background-color: grey;'
+              : 'background-color: white;'
+          "
+        />
 
         <div class="text-subtitle1 et_pb_text_1">
           Tu salud, nuestro compromiso.
@@ -56,11 +72,9 @@
       </div>
     </div>
 
-    <div>
+    <div :class="appStore.darkMode ? 'text-white' : 'text-grey-9'">
       <div class="row justify-evenly">
-        <p class="text-caption text-white et_pb_text_1">
-          Copyright &copy; 2024 OrtegaLab
-        </p>
+        <p class="text-caption et_pb_text_1">Copyright &copy; 2024 OrtegaLab</p>
       </div>
     </div>
   </div>
@@ -87,20 +101,26 @@
   opacity: 0;
 }
 
-.background {
-  background: linear-gradient(45deg, #333333, #666666);
-
-  /* Establecer un degradado desvanecido hacia abajo */
-  background: linear-gradient(to bottom, #333333, #666666);
-
-  /* Añadir una transición suave para el desvanecido */
-  transition: background 0.5s ease;
+.element-dark {
+  background-image: linear-gradient(
+    142deg,
+    #5b5b5b 0%,
+    rgba(0, 0, 0, 0.5) 100%
+  ) !important;
+}
+/* Para dark mode no activo (inverso de los colores de .element) */
+.element {
+  background-image: linear-gradient(
+    142deg,
+    #a4a4a4 0%,
+    /* Color de fondo blanco en lugar de #5b5b5b */ rgba(255, 255, 255, 0.5)
+      100% /* Color del fondo con opacidad en lugar de rgba(0, 0, 0, 0.9) */
+  ) !important;
 }
 
 hr {
   border: none;
   height: 0.75px;
-  background-color: white;
   width: 100%;
 }
 </style>

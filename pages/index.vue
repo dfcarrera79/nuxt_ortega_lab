@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import Services from "../components/index/services.vue";
 import About from "../components/index/about.vue";
-import Carousel from "../components/index/carousel.vue";
 import WebLab from "../components/index/weblab.vue";
+import Services from "../components/index/services.vue";
+import Carousel from "../components/index/carousel.vue";
 </script>
 
 <template>

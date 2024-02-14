@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import { useQuasar } from "quasar";
 import Foot from "../components/foot.vue";
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { useAppStore } from "../store/app";
+import type { DarkMode } from "../components/models";
+import { LocalStorage, useQuasar } from "quasar";
+import { ref, onMounted, onBeforeUnmount, watch, onBeforeMount } from "vue";
 
 // Data
 const $q = useQuasar();
+const darkMode = ref(true);
 const scrolled = ref(false);
+const { dark } = useQuasar();
 const isHovered = ref(false);
+const appStore = useAppStore();
 const rightDrawerOpen = ref(false);
 const menuList = [
   {
@@ -67,6 +72,23 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.removeEventListener("scroll", handleScroll);
 });
+
+watch(
+  () => dark.isActive,
+  (val) => {
+    appStore.setDarkMode(val);
+    // Guardar el estado de dark.isActive en el LocalStorage
+    LocalStorage.set("darkMode", { darkMode: val });
+  }
+);
+
+onBeforeMount(async () => {
+  const session: DarkMode | null = LocalStorage.getItem("darkMode");
+  darkMode.value = session?.darkMode || false;
+  if (session?.darkMode !== null) {
+    dark.set(darkMode.value);
+  }
+});
 </script>
 
 <template>
@@ -75,13 +97,29 @@ onBeforeUnmount(() => {
       <router-view />
     </q-page-container>
 
-    <q-header class="text-white background-none">
+    <q-header
+      class="text-white"
+      :style="
+        appStore.darkMode
+          ? 'background-color: rgba(0, 0, 0, 0.5)'
+          : 'background-color: rgba(255, 255, 255, 0.5)'
+      "
+    >
       <q-toolbar>
         <q-toolbar-title>
-          <a href="/">
+          <a href="/" v-if="!($q.screen.lt.md || $q.screen.lt.sm)">
             <img
               ref="logo"
-              src="/img/logo.png"
+              src="https://res.cloudinary.com/dvy167slj/image/upload/f_auto,q_auto/v1/ortegalab/logo"
+              class="q-pa-sm q-transition--fast"
+              :style="{ height: scrolled ? '50px' : '70px' }"
+              alt="Descripción de la imagen"
+            />
+          </a>
+          <a href="/" v-if="$q.screen.lt.md || $q.screen.lt.sm">
+            <img
+              ref="logo"
+              src="https://res.cloudinary.com/dvy167slj/image/upload/f_auto,q_auto/v1/ortegalab/logo_mobile"
               class="q-pa-sm q-transition--fast"
               :style="{ height: scrolled ? '50px' : '70px' }"
               alt="Descripción de la imagen"
@@ -92,21 +130,39 @@ onBeforeUnmount(() => {
         <div class="q-pr-md" v-if="!($q.screen.lt.md || $q.screen.lt.sm)">
           <q-btn
             outline
-            color="white"
             no-caps
             label="Resultados Online"
             class="custom-btn et_pb_text_1"
+            :color="appStore.darkMode ? 'white' : 'grey-9'"
             href="http://ortegalabcloud.com/"
           >
             <q-icon left size="2em" name="chevron_right" />
           </q-btn>
         </div>
+        <div class="q-pr-md" v-if="$q.screen.lt.md || $q.screen.lt.sm">
+          <q-btn
+            outline
+            no-caps
+            label="Resultados Online"
+            size="md"
+            :color="appStore.darkMode ? 'white' : 'grey-9'"
+            class="custom-btn et_pb_text_1"
+            href="http://ortegalabcloud.com/"
+          />
+        </div>
+        <q-toggle
+          :model-value="dark.isActive"
+          checked-icon="dark_mode"
+          unchecked-icon="light_mode"
+          size="3rem"
+          @update:model-value="(val) => dark.set(val)"
+        />
         <q-btn
           dense
           flat
           round
           icon="menu"
-          :color="isHovered ? 'primary' : 'white'"
+          :color="appStore.darkMode ? 'white' : 'grey-9'"
           @click="toggleRightDrawer"
           @mouseenter="handleMouseEnter"
           @mouseleave="handleMouseLeave"
@@ -176,9 +232,14 @@ onBeforeUnmount(() => {
     <q-page-scroller
       position="bottom-right"
       :scroll-offset="150"
-      :offset="[28, 18]"
+      :offset="[18, 18]"
     >
-      <q-btn icon="keyboard_arrow_up" outline round color="white">
+      <q-btn
+        icon="keyboard_arrow_up"
+        outline
+        round
+        :color="appStore.darkMode ? 'white' : 'grey-7'"
+      >
         <q-tooltip
           transition-show="scale"
           transition-hide="scale"
@@ -236,13 +297,13 @@ onBeforeUnmount(() => {
 }
 
 .whatsapp-btn {
-  margin-right: 25px;
+  margin-right: 15px;
   margin-bottom: 70px;
   transition: transform 0.5s ease;
 }
 
 .fixed-whatsapp-btn {
-  margin-right: 25px;
+  margin-right: 15px;
   margin-bottom: 70px;
   transform: translateY(40px); /* Adjust the initial position */
 }

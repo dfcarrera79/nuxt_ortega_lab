@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
+import { useAppStore } from "../../store/app";
 import { reveal } from "../../composables/services";
-import Card from "../components/widgets/Card.vue";
+import CardWidget from "../widgets/Card.vue";
 
 // Data
+const appStore = useAppStore();
 const cardContent = [
   {
     logo: "His",
@@ -38,51 +40,58 @@ onMounted(() => {
   reveal(".custom-caption");
 });
 
-if (process.client) {
-  // Only run this code on the client-side (in the browser)
-  window.addEventListener("scroll", () => reveal("hr"));
-  window.addEventListener("scroll", () => reveal(".custom-caption"));
-}
+window.addEventListener("scroll", () => reveal("hr"));
+window.addEventListener("scroll", () => reveal(".custom-caption"));
 </script>
 
 <template>
   <div
-    class="element fit column wrap justify-center items-center content-center q-pb-xl"
+    :class="
+      appStore.darkMode
+        ? 'element-dark fit column wrap justify-center items-center content-center q-pb-xl'
+        : 'element fit column wrap justify-center items-center content-center q-pb-xl'
+    "
   >
     <div
-      class="text-left font-bold q-pt-sm custom-caption"
+      :class="
+        appStore.darkMode
+          ? 'text-left font-bold q-pt-sm custom-caption text-blue-4'
+          : 'text-left font-bold q-pt-sm custom-caption text-blue-9'
+      "
       style="font-family: 'Lato'"
     >
       <div class="text-h4 q-pt-xl">Cartera de servicios</div>
-      <div class="text-subtitle1">Ponemos a su disposición el estudio de:</div>
-      <hr class="q-mb-md" />
+      <div class="text-subtitle1">
+        Ponemos a su disposición el estudio de:
+        <hr
+          class="q-mb-md"
+          :style="
+            appStore.darkMode
+              ? 'background-color: #64b5f6;'
+              : 'background-color: #1565c0;'
+          "
+        />
+      </div>
     </div>
 
     <div class="fit row wrap justify-evenly items-center content-center">
       <template v-for="(content, index) in cardContent" :key="index">
-        <nuxt-link to="/servicios" class="card-link">
-          <Card
-            :logo="content.logo"
-            :title="content.title"
-            :description="content.description"
-          />
-        </nuxt-link>
+        <CardWidget
+          :logo="content.logo"
+          :title="content.title"
+          :description="content.description"
+        />
       </template>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.card-link {
-  text-decoration: none; /* Remove underline */
-  color: inherit; /* Inherit the color from the parent */
-}
 .custom-caption {
   text-align: left !important;
   font-size: 48px !important;
   line-height: 1.1em !important;
   text-transform: uppercase;
-  color: #fff;
   font-weight: 400;
   padding: 12px;
   transition: transform 0.7s ease 0.5s;
@@ -94,18 +103,26 @@ if (process.client) {
   transform: translateY(0px);
   opacity: 1;
 }
-.element {
+.element-dark {
   background-image: linear-gradient(
     142deg,
     #5b5b5b 0%,
-    rgba(0, 0, 0, 0.9) 100%
+    rgba(0, 0, 0, 0.5) 100%
+  ) !important;
+}
+/* Para dark mode no activo (inverso de los colores de .element) */
+.element {
+  background-image: linear-gradient(
+    142deg,
+    #a4a4a4 0%,
+    /* Color de fondo blanco en lugar de #5b5b5b */ rgba(255, 255, 255, 0.5)
+      100% /* Color del fondo con opacidad en lugar de rgba(0, 0, 0, 0.9) */
   ) !important;
 }
 
 hr {
   border: none;
   height: 0.75px;
-  background-color: white;
   width: 100%; /* You can adjust this value to set the desired length */
   transition: transform 0.7s ease 0.5s;
   transform: translateX(-600px);

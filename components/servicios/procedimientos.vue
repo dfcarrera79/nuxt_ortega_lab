@@ -1,54 +1,56 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
+import { useAppStore } from "../../store/app";
+import { reveal } from "../../composables/services";
+
+const appStore = useAppStore();
 
 // Methods
-function reveal(clase: string) {
-  var reveals = document.querySelectorAll(clase);
-
-  for (var i = 0; i < reveals.length; i++) {
-    var windowHeight = window.innerHeight;
-    var elementTop = reveals[i].getBoundingClientRect().top;
-    var elementVisible = 150;
-
-    if (elementTop < windowHeight - elementVisible) {
-      reveals[i].classList.add("active");
-    } else {
-      reveals[i].classList.remove("active");
-    }
-  }
-}
-
 onMounted(() => {
   reveal(".pgraph");
   reveal("hr");
   reveal(".custom-caption");
 });
 
-if (process.client) {
-  window.addEventListener("scroll", () => reveal("hr"));
-  window.addEventListener("scroll", () => reveal("pgraph"));
-  window.addEventListener("scroll", () => reveal(".custom-caption"));
-}
+window.addEventListener("scroll", () => reveal("hr"));
+window.addEventListener("scroll", () => reveal("pgraph"));
+window.addEventListener("scroll", () => reveal(".custom-caption"));
 </script>
 
 <template>
   <div
-    class="fit column wrap justify-center items-center content-center q-pb-xl"
+    :class="
+      appStore.darkMode
+        ? 'text-white fit column wrap justify-center items-center content-center q-pb-xl'
+        : 'text-grey-9 fit column wrap justify-center items-center content-center q-pb-xl'
+    "
     style="height: 600px"
   >
     <div class="text-left font-bold q-pt-sm custom-caption title">
-      <div class="text-h4 q-pt-xl" style="font-family: 'Lato'">
-        Detalle de procedimientos realizados
-        <hr class="q-mb-md" style="min-width: 350px" />
+      <div
+        class="text-h4 q-pt-xl justify-center content-center"
+        style="font-family: 'Lato'"
+      >
+        <span :class="appStore.darkMode ? 'text-blue-4 ' : 'text-blue-9'"
+          >Detalle de procedimientos realizados</span
+        >
+        <hr
+          class="q-mb-md"
+          :style="
+            appStore.darkMode
+              ? 'background-color: #64b5f6;'
+              : 'background-color: #1565c0;'
+          "
+        />
       </div>
     </div>
 
-    <div class="q-pa-md text-white" style="max-width: 900px">
+    <div class="q-pa-md" style="max-width: 900px">
       <q-list bordered class="rounded-borders et_pb_text_1">
         <q-expansion-item
           group="somegroup"
           label="Diagnostico histopatológico de órganos o piezas quirúrgicas"
-          header-class="text-white text-h5"
+          header-class="text-h5"
         >
           <q-card style="background: rgba(255, 255, 255, 0)">
             <q-card-section>
@@ -98,7 +100,7 @@ if (process.client) {
         <q-expansion-item
           group="somegroup"
           label="Biopsias de piel y dermatopatología"
-          header-class="text-white text-h5"
+          header-class="text-h5"
         >
           <q-card style="background: rgba(255, 255, 255, 0)">
             <q-card-section>
@@ -165,7 +167,7 @@ if (process.client) {
         <q-expansion-item
           group="somegroup"
           label="Transoperatorio por congelación"
-          header-class="text-white text-h5"
+          header-class="text-h5"
         >
           <q-card style="background: rgba(255, 255, 255, 0)">
             <q-card-section>
@@ -234,7 +236,7 @@ if (process.client) {
         <q-expansion-item
           group="somegroup"
           label="Base líquida"
-          header-class="text-white text-h5"
+          header-class="text-h5"
         >
           <q-card style="background: rgba(255, 255, 255, 0)">
             <q-card-section>
@@ -278,7 +280,7 @@ if (process.client) {
         <q-expansion-item
           group="somegroup"
           label="¿Qué es virus de papiloma humano (HPV)?"
-          header-class="text-white text-h5"
+          header-class="text-h5"
         >
           <q-card style="background: rgba(255, 255, 255, 0)">
             <q-card-section>
@@ -311,7 +313,7 @@ if (process.client) {
         <q-expansion-item
           group="somegroup"
           label="Inmunohistoquímica"
-          header-class="text-white text-h5"
+          header-class="text-h5"
         >
           <q-card style="background: rgba(255, 255, 255, 0)">
             <q-card-section>
@@ -339,7 +341,7 @@ if (process.client) {
         <q-expansion-item
           group="somegroup"
           label="Inmunofluorescencia"
-          header-class="text-white text-h5"
+          header-class="text-h5"
         >
           <q-card style="background: rgba(255, 255, 255, 0)">
             <q-card-section>
@@ -381,7 +383,7 @@ if (process.client) {
   line-height: 1.6em;
   font-family: "Josefin Sans", Helvetica, Arial, Lucida, sans-serif;
   font-weight: 300;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.6em;
 }
 
@@ -389,7 +391,6 @@ hr {
   border: none;
   height: 0.75px;
   width: 100%;
-  background-color: white;
   transition: transform 0.7s ease 0.5s;
   transform: translateX(-600px);
   opacity: 0;
@@ -410,7 +411,6 @@ hr.active {
   font-size: 48px !important;
   line-height: 1.1em !important;
   text-transform: uppercase;
-  color: #fff;
   font-weight: 400;
   padding: 12px;
   transition: transform 0.7s ease 0.5s;

@@ -1,27 +1,29 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useQuasar } from "quasar";
+import { useAppStore } from "../../store/app";
 
 // Data
-const $q = useQuasar();
 const name = ref("");
 const email = ref("");
-const telefono = ref(null);
 const asunto = ref("");
 const editor = ref("");
+const $q = useQuasar();
 const show = ref(true);
+const telefono = ref("");
+const appStore = useAppStore();
 
 // Methods
 const submitEmail = async () => {
   try {
-    const apiUrl = "http://127.0.0.1:3009/enviar_correo/respuestaLab";
+    const apiUrl = "http://186.5.111.32:3009/enviar_correo/respuestaLab";
     const response = await fetch(apiUrl, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: "dfcarrera@outlook.com",
+        email: "resultados@ortegalab.com",
         asunto: asunto.value,
         respuesta: `Nombre: ${name.value}, \nTeléfono: ${telefono.value}, \nEmail: ${email.value}, \nAsunto: ${asunto.value}, \nMensaje: ${editor.value}`,
       }),
@@ -56,7 +58,7 @@ const submitEmail = async () => {
       <div class="column justify-center">
         <div class="row justify-center q-gutter-md">
           <div class="et_pb_text_1" style="width: 290px">
-            <q-input
+            <!-- <q-input
               dark
               v-model="name"
               label="Nombre"
@@ -65,10 +67,30 @@ const submitEmail = async () => {
                 (val) =>
                   (val && val.length > 0) || 'Por favor escriba su nombre',
               ]"
-            />
+            /> -->
+
+            <div class="form__group field">
+              <input
+                type="input"
+                class="form__field"
+                v-model="name"
+                required
+                :style="
+                  appStore.darkMode
+                    ? 'border-bottom: 2px solid #fff;'
+                    : 'border-bottom: 2px solid #696969;'
+                "
+              />
+              <label
+                for="name"
+                class="form__label"
+                :style="appStore.darkMode ? 'color: #fff;' : 'color: #696969;'"
+                >Nombre</label
+              >
+            </div>
           </div>
           <div class="et_pb_text_1" style="width: 290px">
-            <q-input
+            <!-- <q-input
               dark
               v-model="telefono"
               label="Teléfono"
@@ -79,13 +101,32 @@ const submitEmail = async () => {
                   /^[0-9]{7,14}$/.test(val) ||
                   'Número de teléfono inválido (Min. 7 dígitos, Max. 14 dígitos)',
               ]"
-            />
+            /> -->
+            <div class="form__group field">
+              <input
+                type="input"
+                class="form__field"
+                :style="
+                  appStore.darkMode
+                    ? 'border-bottom: 2px solid #fff;'
+                    : 'border-bottom: 2px solid #696969;'
+                "
+                v-model="telefono"
+                required
+              />
+              <label
+                for="name"
+                class="form__label"
+                :style="appStore.darkMode ? 'color: #fff;' : 'color: #696969;'"
+                >Teléfono</label
+              >
+            </div>
           </div>
         </div>
 
         <div class="row justify-center q-gutter-md">
           <div class="et_pb_text_1" style="width: 290px">
-            <q-input
+            <!-- <q-input
               dark
               v-model="email"
               label="Email"
@@ -96,10 +137,29 @@ const submitEmail = async () => {
                   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val) ||
                   'Dirección de correo inválida',
               ]"
-            />
+            /> -->
+            <div class="form__group field">
+              <input
+                type="input"
+                class="form__field"
+                :style="
+                  appStore.darkMode
+                    ? 'border-bottom: 2px solid #fff;'
+                    : 'border-bottom: 2px solid #696969;'
+                "
+                v-model="email"
+                required
+              />
+              <label
+                for="name"
+                class="form__label"
+                :style="appStore.darkMode ? 'color: #fff;' : 'color: #696969;'"
+                >Email</label
+              >
+            </div>
           </div>
           <div class="et_pb_text_1" style="width: 290px">
-            <q-input
+            <!-- <q-input
               dark
               v-model="asunto"
               label="Asunto"
@@ -108,7 +168,26 @@ const submitEmail = async () => {
                 (val) =>
                   (val && val.length > 0) || 'Por favor escriba un asunto',
               ]"
-            />
+            /> -->
+            <div class="form__group field">
+              <input
+                type="input"
+                class="form__field"
+                :style="
+                  appStore.darkMode
+                    ? 'border-bottom: 2px solid #fff;'
+                    : 'border-bottom: 2px solid #696969;'
+                "
+                v-model="asunto"
+                required
+              />
+              <label
+                for="name"
+                class="form__label"
+                :style="appStore.darkMode ? 'color: #fff;' : 'color: #696969;'"
+                >Asunto</label
+              >
+            </div>
           </div>
         </div>
 
@@ -117,7 +196,6 @@ const submitEmail = async () => {
             placeholder="Mensaje: "
             v-model="editor"
             min-height="8rem"
-            :content-style="{ backgroundColor: 'rgba(192, 192, 192, 1)' }"
           />
         </div>
       </div>
@@ -125,7 +203,6 @@ const submitEmail = async () => {
       <div>
         <q-btn
           outline
-          color="white"
           no-caps
           :disable="
             name === '' ||
@@ -134,7 +211,6 @@ const submitEmail = async () => {
           "
           label="Enviar"
           class="custom-btn et_pb_text_1"
-          style="font-weight: bold"
           type="submit"
         >
           <q-icon left size="2em" name="chevron_right" />
@@ -182,5 +258,69 @@ const submitEmail = async () => {
 
 .custom-btn:not(:hover) .q-icon {
   display: none;
+}
+
+$primary: #1976d2;
+$secondary: #0080ff;
+$white: #fff;
+$gray: #696969;
+.form__group {
+  position: relative;
+  padding: 15px 0 0;
+  margin-top: 10px;
+  width: 70%;
+}
+
+.form__field {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  outline: 0;
+  font-size: 1.3rem;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  &:placeholder-shown ~ .form__label {
+    cursor: text;
+    top: 20px;
+  }
+}
+
+.form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: $gray;
+}
+
+.form__field:focus {
+  ~ .form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: $primary;
+    font-weight: 700;
+  }
+  padding-bottom: 6px;
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(to right, $primary, $secondary);
+  border-image-slice: 1;
+}
+/* reset input */
+.form__field {
+  &:required,
+  &:invalid {
+    box-shadow: none;
+  }
 }
 </style>

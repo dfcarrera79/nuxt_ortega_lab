@@ -7,7 +7,9 @@ import Publicaciones from "../components/nosotros/publicaciones.vue";
 <template>
   <div>
     <q-img class="full-width" style="max-height: 200px">
-      <img src="/img/row-bgimage.jpg" />
+      <img
+        src="https://res.cloudinary.com/dvy167slj/image/upload/f_auto,q_auto/v1/ortegalab/row-bgimage"
+      />
     </q-img>
     <Mision />
     <Vision />

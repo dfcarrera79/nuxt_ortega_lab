@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
+import { useAppStore } from "../../store/app";
 import { reveal } from "../../composables/services";
 
+const appStore = useAppStore();
+
+// Methods
 onMounted(() => {
   reveal(".pgraph");
   reveal("hr");
   reveal(".custom-caption");
 });
 
-if (process.client) {
-  window.addEventListener("scroll", () => reveal("hr"));
-  window.addEventListener("scroll", () => reveal(".custom-caption"));
-}
-
+window.addEventListener("scroll", () => reveal("hr"));
+window.addEventListener("scroll", () => reveal(".custom-caption"));
 // Data
 const publicaciones = [
   {
@@ -61,28 +62,58 @@ const publicaciones = [
 
 <template>
   <div
-    class="element fit column wrap justify-center items-center content-center q-pb-xl"
+    :class="
+      appStore.darkMode
+        ? 'element-dark fit column wrap justify-center items-center content-center q-pb-xl'
+        : 'element fit column wrap justify-center items-center content-center q-pb-xl'
+    "
     style="height: 600px"
   >
     <div class="text-left font-bold q-pt-sm custom-caption title">
-      <div class="text-h4 q-pt-xl">Artículos científicos de especialidad</div>
-      <div class="text-h4">disponibles en PUBMED</div>
-      <hr class="q-mb-md" style="min-width: 350px" />
+      <div class="text-h4 q-pt-xl">
+        <span :class="appStore.darkMode ? 'text-blue-4' : 'text-blue-9'"
+          >Artículos científicos de especialidad</span
+        >
+      </div>
+      <div class="text-h4">
+        <span :class="appStore.darkMode ? 'text-blue-4' : 'text-blue-9'"
+          >disponibles en PUBMED</span
+        >
+      </div>
+      <hr
+        class="q-mb-md"
+        :style="
+          appStore.darkMode
+            ? 'background-color: #64b5f6;'
+            : 'background-color: #1565c0;'
+        "
+      />
     </div>
 
-    <div class="q-pa-md text-white pgraph" style="max-width: 600px">
+    <div
+      :class="appStore.darkMode ? 'text-white q-pa-md' : 'text-grey-9 q-pa-md'"
+      style="max-width: 600px"
+    >
       <q-list
         bordered
         class="rounded-borders et_pb_text_1"
         v-for="(publicacion, index) in publicaciones"
         :key="index"
       >
-        <q-expansion-item
-          group="somegroup"
-          :icon="publicacion.icon"
-          :label="publicacion.label"
-          header-class="text-white"
-        >
+        <q-expansion-item group="somegroup">
+          <template v-slot:header>
+            <q-item-section avatar>
+              <q-icon
+                :color="appStore.darkMode ? 'blue-4' : 'blue-9'"
+                :name="publicacion.icon"
+              />
+            </q-item-section>
+
+            <q-item-section>
+              {{ publicacion.label }}
+            </q-item-section>
+          </template>
+
           <q-card style="background: rgba(255, 255, 255, 0)">
             <q-card-section>
               {{ publicacion.caption }}
@@ -98,21 +129,30 @@ const publicaciones = [
   line-height: 1.6em;
   font-family: "Josefin Sans", Helvetica, Arial, Lucida, sans-serif;
   font-weight: 300;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.6em;
 }
-.element {
+.element-dark {
   background-image: linear-gradient(
     142deg,
     #5b5b5b 0%,
-    rgba(0, 0, 0, 0.9) 100%
+    rgba(0, 0, 0, 0.5) 100%
   ) !important;
 }
+/* Para dark mode no activo (inverso de los colores de .element) */
+.element {
+  background-image: linear-gradient(
+    142deg,
+    #a4a4a4 0%,
+    /* Color de fondo blanco en lugar de #5b5b5b */ rgba(255, 255, 255, 0.5)
+      100% /* Color del fondo con opacidad en lugar de rgba(0, 0, 0, 0.9) */
+  ) !important;
+}
+
 hr {
   border: none;
   height: 0.75px;
-  background-color: white;
-  width: 100%;
+  width: 100%; /* You can adjust this value to set the desired length */
   transition: transform 0.7s ease 0.5s;
   transform: translateX(-600px);
   opacity: 0;
@@ -133,7 +173,6 @@ hr.active {
   font-size: 48px !important;
   line-height: 1.1em !important;
   text-transform: uppercase;
-  color: #fff;
   font-weight: 400;
   padding: 12px;
   transition: transform 0.7s ease 0.5s;

@@ -1,53 +1,48 @@
 <script setup lang="ts">
-function reveal(clase: string) {
-  var reveals = document.querySelectorAll(clase);
+import { useAppStore } from "../../store/app";
+import { reveal } from "../../composables/services";
 
-  for (var i = 0; i < reveals.length; i++) {
-    var windowHeight = window.innerHeight;
-    var elementTop = reveals[i].getBoundingClientRect().top;
-    var elementVisible = 150;
+const appStore = useAppStore();
 
-    if (elementTop < windowHeight - elementVisible) {
-      reveals[i].classList.add("active");
-    } else {
-      reveals[i].classList.remove("active");
-    }
-  }
-}
-
-if (process.client) {
-  window.addEventListener("scroll", () => reveal(".pgraph"));
-  window.addEventListener("scroll", () => reveal(".container_img"));
-  window.addEventListener("scroll", () => reveal("hr"));
-  window.addEventListener("scroll", () => reveal(".custom-caption"));
-}
+window.addEventListener("scroll", () => reveal(".pgraph"));
+window.addEventListener("scroll", () => reveal(".container_img"));
+window.addEventListener("scroll", () => reveal("hr"));
+window.addEventListener("scroll", () => reveal(".custom-caption"));
 </script>
 
 <template>
   <div
-    class="element fit column wrap justify-center items-center content-center q-pb-xl"
+    :class="
+      appStore.darkMode
+        ? 'text-blue-4 element-dark fit column wrap justify-center items-center content-center q-pb-xl'
+        : 'text-blue-9 element fit column wrap justify-center items-center content-center q-pb-xl'
+    "
     style="height: 600px"
   >
     <div class="fit row wrap justify-center items-center content-center">
       <div class="container_outer_img">
         <div class="column container_img">
           <q-img
-            src="/img/img6.png"
+            src="https://res.cloudinary.com/dvy167slj/image/upload/f_auto,q_auto/v1/ortegalab/img6"
             fit="scale-down"
             style="max-width: 500px"
           />
-          <p class="q-mt-xs text-white et_pb_text_1">
+          <p
+            :class="
+              appStore.darkMode
+                ? ' q-mt-xs et_pb_text_1 text-white'
+                : 'q-mt-xs et_pb_text_1 text-grey-9'
+            "
+          >
             Plataforma WebLab para visualización de resultados ONLINE
           </p>
           <div style="max-width: 200px">
             <q-btn
               outline
-              color="white"
               no-caps
               label="Saber más"
               class="custom-btn et_pb_text_1"
               href="http://ortegalabcloud.com/"
-              style="font-weight: bold"
             >
               <q-icon left size="2em" name="chevron_right" />
             </q-btn>
@@ -61,8 +56,21 @@ if (process.client) {
         >
           <div class="text-h4">¿Qué es WebLAB?</div>
         </div>
-        <hr class="q-mb-md" />
-        <div class="text-subtitle1 text-left text-white pgraph et_pb_text_1">
+        <hr
+          class="q-mb-md"
+          :style="
+            appStore.darkMode
+              ? 'background-color: #64b5f6;'
+              : 'background-color: #1565c0;'
+          "
+        />
+        <div
+          :class="
+            appStore.darkMode
+              ? 'text-white text-subtitle1 text-left pgraph et_pb_text_1'
+              : 'text-grey-9 text-subtitle1 text-left pgraph et_pb_text_1'
+          "
+        >
           <p>
             WebLAB es un sistema de acceso directo del cliente a los resultados
             de laboratorio de biopsia y examenes citológicos.
@@ -100,7 +108,6 @@ if (process.client) {
   font-size: 48px !important;
   line-height: 1.1em !important;
   text-transform: uppercase;
-  color: #fff;
   font-weight: 400;
   padding: 12px;
   transition: transform 0.7s ease 0.5s;
@@ -113,18 +120,26 @@ if (process.client) {
   opacity: 1;
 }
 
-.element {
+.element-dark {
   background-image: linear-gradient(
     142deg,
     #5b5b5b 0%,
-    rgba(0, 0, 0, 0.9) 100%
+    rgba(0, 0, 0, 0.5) 100%
+  ) !important;
+}
+/* Para dark mode no activo (inverso de los colores de .element) */
+.element {
+  background-image: linear-gradient(
+    142deg,
+    #a4a4a4 0%,
+    /* Color de fondo blanco en lugar de #5b5b5b */ rgba(255, 255, 255, 0.5)
+      100% /* Color del fondo con opacidad en lugar de rgba(0, 0, 0, 0.9) */
   ) !important;
 }
 
 hr {
   border: none;
   height: 0.75px;
-  background-color: white;
   width: 100%; /* You can adjust this value to set the desired length */
   transition: transform 0.7s ease 0.5s;
   transform: translateX(600px);

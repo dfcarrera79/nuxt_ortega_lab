@@ -13,6 +13,8 @@
     "sass": "^1.62.1"
   },
   "dependencies": {
+    "@pinia/nuxt": "^0.5.1",
+    "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
     "@quasar/extras": "^1.16.4",
     "quasar": "^2.12.0"
   }

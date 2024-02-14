@@ -32,7 +32,7 @@ const props = defineProps({
 .my-card {
   position: absolute;
   height: 400px;
-  background: rgba(0, 0, 0, 0.47);
+  background: rgba(0, 0, 0, 0.4);
   transform: translateY(400px);
   transition: transform 0.3s ease;
 }
@@ -45,7 +45,7 @@ const props = defineProps({
 
 .et_pb_text_1 {
   line-height: 1.6em;
-  font-family: 'Josefin Sans', Helvetica, Arial, Lucida, sans-serif;
+  font-family: "Josefin Sans", Helvetica, Arial, Lucida, sans-serif;
   font-weight: 300;
   font-size: 18px;
   line-height: 1.6em;
@@ -61,7 +61,7 @@ main {
   justify-content: center;
   align-items: center;
   padding: 50px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .card {
